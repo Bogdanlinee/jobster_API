@@ -41,11 +41,26 @@ const login = async (req, res) => {
       location: user.location,
       name: user.name,
       token,
-    },
+    }
+  });
+}
+
+const updateUser = async (req, res) => {
+  const user = await User.findOneAndUpdate({ _id: req.user.userId }, req.body, { returnDocument: 'after', runValidators: true });
+  const token = user.createJWT();
+  res.status(StatusCodes.OK).json({
+    data: {
+      email: user.email,
+      lastName: user.lastName,
+      location: user.location,
+      name: user.name,
+      token
+    }
   });
 }
 
 module.exports = {
   register,
   login,
+  updateUser
 }
