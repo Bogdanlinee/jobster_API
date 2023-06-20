@@ -11,6 +11,7 @@ const app = express();
 
 const connectDB = require('./db/connect');
 const authenticateUser = require('./middleware/authentication');
+const isTestUser = require('./middleware/isTestUser');
 
 // routers
 const authRouter = require('./routes/auth');
@@ -28,7 +29,7 @@ app.use(xss());
 
 // routes
 app.use('/api/v1/auth', authRouter);
-app.use('/api/v1/jobs', authenticateUser, jobsRouter);
+app.use('/api/v1/jobs', authenticateUser, isTestUser, jobsRouter);
 
 app.get('*', (req, res) => {
   res.sendFile(path.resolve(__dirname, './client/build', 'index.html'));
