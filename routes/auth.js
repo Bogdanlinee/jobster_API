@@ -17,4 +17,4 @@ router.post('/register', limiter, register);
 router.post('/login', limiter, login);
 router.patch('/updateUser', auth, isTestUser, updateUser);
 
-module.exports = router
+module.exports = router;
